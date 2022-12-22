@@ -1,0 +1,29 @@
+import pyodbc 
+
+# Connect to the database
+conn = pyodbc.connect('DRIVER={SQL Server};'
+                      'SERVER=server_name;'
+                      'DATABASE=database_name;'
+                      'UID=username;'
+                      'PWD=password')
+
+# Create a cursor
+cursor = conn.cursor()
+
+# Get user-submitted variables
+field = input("Enter the field you want to search: ")
+value = input("Enter the value you want to search for: ")
+
+# Construct the SQL query
+query = "SELECT * FROM table_name WHERE {} = '{}'".format(field, value)
+
+# Execute the query
+cursor.execute(query)
+
+# Fetch and print the results
+results = cursor.fetchall()
+print(results)
+
+# Close the cursor and connection
+cursor.close()
+conn.close()
